@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snoww — New Single & Tour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --muted: #a4a7b7;
+      --text: #e9e9f1;
+      --primary: #7c5cff;
+      --primary-2: #00d4ff;
+      --accent: #16ffbd;
+      --danger: #ff5577;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    * {box-sizing: border-box}
+    body {
+      margin: 0;
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% 0%, rgba(124,92,255,.18), transparent 60%),
+                  radial-gradient(1000px 700px at 100% 10%, rgba(0,212,255,.15), transparent 60%),
+                  linear-gradient(180deg, #0a0a0f 0%, #0a0a0f 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: rgba(10,10,15,.6);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav {
+      max-width: 1100px; margin: 0 auto; padding: 14px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.5px}
+    .brand .dot {width: 12px; height:12px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); border-radius:50%; box-shadow: 0 0 12px rgba(124,92,255,.7)}
+    .nav a {opacity:.9}
+    .nav a:hover {opacity:1}
+    .menu {display:flex; gap:18px; font-weight:500}
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+
+    .grid {
+      display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px;
+    }
+    @media (max-width: 900px){ .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px; position: relative; overflow: hidden;
+    }
+    .card h2 { margin: 0 0 6px; font-size: 1.4rem; }
+    .muted { color: var(--muted); font-size: .95rem; }
+
+    .hero { display:flex; gap: 22px; align-items: center; }
+    .cover {
+      width: 220px; aspect-ratio:1/1; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 18px 60px rgba(124,92,255,.25);
+    }
+    .cover img { width:100%; height:100%; object-fit: cover; display:block; }
+    .artist {
+      display:flex; align-items:center; gap: 14px; margin-top: 8px;
+    }
+    .artist .avatar {width: 54px; height: 54px; border-radius: 50%; overflow:hidden; border:2px solid rgba(255,255,255,.2)}
+    .artist .avatar img {width:100%; height:100%; object-fit: cover}
+
+    .controls { display:flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .btn {
+      padding: 10px 14px; border-radius: 12px; font-weight:600; border:1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.06); cursor:pointer; transition: transform .06s ease, opacity .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #070710; border: none; }
+    .btn.ghost { background: transparent; }
+
+    .audio { margin-top: 14px; width: 100%; }
+    audio { width: 100%; outline: none; filter: drop-shadow(0 6px 18px rgba(0,0,0,.25)); }
+
+    .countdown {
+      display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px;
+    }
+    .timebox {
+      text-align:center; padding: 12px; border-radius: 16px; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .timebox .num { font-size: 1.6rem; font-weight: 700; }
+    .timebox .lbl { font-size: .8rem; color: var(--muted); letter-spacing:.5px }
+
+    .section-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px; }
+
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding: 14px 10px; text-align: left; }
+    thead th { font-weight:600; color: var(--muted); }
+    tbody tr { border-top: 1px solid rgba(255,255,255,.06); }
+    tbody tr:hover { background: rgba(255,255,255,.03); }
+
+    .pill { font-size:.8rem; padding:6px 10px; border-radius:999px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08) }
+
+    .footer {text-align:center; color:var(--muted); padding: 40px 0 10px; font-size:.9rem}
+
+    /* Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.6); display:none; place-items:center; z-index:50 }
+    .modal { width:min(560px, 92vw); background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius: 18px; box-shadow: var(--shadow); padding: 18px }
+    .modal h3 { margin: 0 0 8px }
+    .modal .row { display:flex; gap: 12px; align-items:center; justify-content:space-between; margin: 10px 0 }
+    .qty { display:flex; align-items:center; gap:8px }
+    .qty button { width:34px; height:34px; border-radius:10px; border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.06); font-weight:700; cursor:pointer }
+    .close-x { position:absolute; right: 14px; top: 10px; font-weight:700; cursor:pointer; opacity:.8 }
+    .total { font-size:1.1rem; font-weight:700 }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><span class="dot"></span> <span>SNOWW'S OFFICIAL WEBSITE</span></div>
+      <div class="menu">
+        <a href="#listen">Listen</a>
+        <a href="#countdown">Countdown</a>
+        <a href="#tour">Tour Dates</a>
+        <a href="#tickets">Tickets</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <!-- Left: Cover, Artist, Player -->
+      <div class="card" id="listen">
+        <div class="hero">
+          <div class="cover">
+            <!-- TODO: Replace src with your album cover image path -->
+            <img src="db61712a-7364-47d9-a114-a72d40aab922.jpg" alt="Album cover" />
+          </div>
+          <div>
+            <h1 style="margin:0 0 8px; font-size:clamp(1.4rem, 1.2rem + 1.4vw, 2.2rem);">NEW SINGLE — "ADRENALIN"</h1>
+            <p class="muted">Out now. Stream it here or download the MP3.</p>
+            <div class="artist">
+              <div class="avatar">
+                <!-- TODO: Replace src with your artist image path -->
+                <img src="artist.jpg" alt="Artist image" />
+              </div>
+              <div>
+                <div style="font-weight:600">Snoww</div>
+                <div class="muted" style="font-size:.9rem">Singer • Songwriter</div>
+              </div>
+            </div>
+            <div class="controls">
+              <!-- TODO: Point this link to your hosted MP3 file (e.g., a direct .mp3 URL) -->
+              <a id="downloadLink" class="btn primary" href="Justin_Bieber_-_Ghost_CeeNaija.com_.mp3" download>⬇️ Download Song</a>
+              <a class="btn" href="#tour">🗺️ See Tour Dates</a>
+            </div>
+          </div>
+        </div>
+        <div class="audio">
+          <!-- TODO: Point src to the same MP3 or a streaming URL -->
+          <audio controls preload="metadata">
+            <source src="Justin_Bieber_-_Ghost_CeeNaija.com_.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+
+      <!-- Right: Countdown -->
+      <div class="card" id="countdown">
+        <h2>Countdown to Next Release</h2>
+        <p class="muted" id="releaseLabel">New track drops on <strong>September 15, 2025</strong>.</p>
+        <div class="countdown" aria-live="polite">
+          <div class="timebox"><div class="num" id="dd">--</div><div class="lbl">Days</div></div>
+          <div class="timebox"><div class="num" id="hh">--</div><div class="lbl">Hours</div></div>
+          <div class="timebox"><div class="num" id="mm">--</div><div class="lbl">Minutes</div></div>
+          <div class="timebox"><div class="num" id="ss">--</div><div class="lbl">Seconds</div></div>
+        </div>
+        <div class="controls" style="margin-top:14px">
+          <button class="btn" id="addCalendar">➕ Add to Calendar (.ics)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tour Dates -->
+    <section class="card" id="tour" style="margin-top:24px">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <h2 class="section-title">Tour Dates</h2>
+        <span class="pill">2025 World Tour</span>
+      </div>
+      <div class="muted" style="margin-bottom:8px">Catch Snoww live. Tap a city to grab tickets.</div>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>City</th>
+              <th>Venue</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tourBody">
+            <!-- Filled by JS below. Edit the data array to customize. -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tickets CTA -->
+    <section class="card" id="tickets" style="margin-top:24px">
+      <h2 class="section-title">Buy Tickets</h2>
+      <p class="muted">Choose a show and secure your spot. Quick checkout powered by your preferred ticketing site.</p>
+      <div class="controls">
+        <a class="btn primary" href="#tour">🎟️ Find Your City</a>
+        <!-- TODO: Replace the link below with your main ticket page if you have one -->
+        <a class="btn ghost" href="https://your-ticket-link.example" target="_blank" rel="noopener">Open Ticket Portal ↗</a>
+      </div>
+    </section>
+
+    <div class="footer">© <span id="year"></span> Snoww. All rights reserved. • Contact: <a href="mailto:booking@yoursite.com">booking@yoursite.com</a></div>
+  </main>
+
+  <!-- Ticket Modal -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <div class="close-x" id="closeModal">✕</div>
+      <h3 id="modalTitle">Buy Tickets</h3>
+      <div class="row">
+        <div class="muted">Section</div>
+        <div>
+          <select id="section" class="btn" style="padding:8px 10px">
+            <option value="Regular" data-price="10000">Regular — ₦10,000</option>
+            <option value="VIP" data-price="30000">VIP — ₦30,000</option>
+            <option value="VVIP" data-price="80000">VVIP — ₦80,000</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="muted">Quantity</div>
+        <div class="qty">
+          <button id="minus">−</button>
+          <div id="qty" style="min-width:24px; text-align:center">1</div>
+          <button id="plus">+</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="muted">Total</div>
+        <div class="total" id="total">₦10,000</div>
+      </div>
+      <div class="row" style="justify-content:flex-end">
+        <!-- TODO: Replace data-checkout with your real checkout URL per event -->
+        <a id="checkout" class="btn primary" href="#" target="_blank" rel="noopener">Proceed to Checkout ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Helper: Format currency (NGN by default) =====
+    const NGN = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+
+    // ===== Footer year =====
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ===== Countdown =====
+    // TODO: Set your exact release date/time (local time). Example below: Sept 15, 2025 @ 6:00 PM
+    const releaseDate = new Date('2025-09-15T18:00:00');
+    const label = document.getElementById('releaseLabel');
+    label.innerHTML = `New track drops on <strong>${releaseDate.toLocaleString()}</strong>.`;
+
+    function tick() {
+      const now = new Date();
+      const diff = Math.max(0, releaseDate - now);
+      const s = Math.floor(diff / 1000);
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      document.getElementById('dd').textContent = String(d);
+      document.getElementById('hh').textContent = String(h).padStart(2,'0');
+      document.getElementById('mm').textContent = String(m).padStart(2,'0');
+      document.getElementById('ss').textContent = String(sec).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // ===== Tour data (Edit this array to your real shows) =====
+    const tour = [
+      { date: '2025-09-28', city: 'Lagos, NG', venue: 'Eko Convention Center', status: 'On sale', ticket: 'https://your-ticket-link.example/lagos' },
+      { date: '2025-10-05', city: 'Abuja, NG', venue: 'Congress Hall', status: 'On sale', ticket: 'https://your-ticket-link.example/abuja' },
+      { date: '2025-10-18', city: 'Accra, GH', venue: 'National Theatre', status: 'Low stock', ticket: 'https://your-ticket-link.example/accra' },
+      { date: '2025-11-02', city: 'London, UK', venue: 'O2 Shepherd’s Bush', status: 'On sale', ticket: 'https://your-ticket-link.example/london' },
+      { date: '2025-11-15', city: 'New York, USA', venue: 'Webster Hall', status: 'Soon', ticket: 'https://your-ticket-link.example/nyc' }
+    ];
+
+    const body = document.getElementById('tourBody');
+    tour.forEach((t, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${new Date(t.date).toLocaleDateString()}</strong></td>
+        <td>${t.city}</td>
+        <td>${t.venue}</td>
+        <td><span class="pill">${t.status}</span></td>
+        <td style="text-align:right"><button class="btn primary" data-idx="${i}">Buy</button></td>
+      `;
+      body.appendChild(tr);
+    });
+
+    // ===== Ticket modal logic =====
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    const qtyEl = document.getElementById('qty');
+    const minus = document.getElementById('minus');
+    const plus = document.getElementById('plus');
+    const sectionSel = document.getElementById('section');
+    const totalEl = document.getElementById('total');
+    const checkout = document.getElementById('checkout');
+    const modalTitle = document.getElementById('modalTitle');
+
+    let activeShow = tour[0];
+    let qty = 1;
+
+    function pricePer() {
+      return Number(sectionSel.options[sectionSel.selectedIndex].dataset.price);
+    }
+    function updateTotal() {
+      totalEl.textContent = NGN.format(qty * pricePer());
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('button.btn.primary[data-idx]')) {
+        const idx = Number(e.target.getAttribute('data-idx'));
+        activeShow = tour[idx];
+        modalTitle.textContent = `Buy Tickets — ${activeShow.city} • ${new Date(activeShow.date).toLocaleDateString()}`;
+        qty = 1; qtyEl.textContent = '1'; sectionSel.selectedIndex = 0; updateTotal();
+        checkout.href = `${activeShow.ticket}?section=${encodeURIComponent(sectionSel.value)}&qty=${qty}`;
+        modal.style.display = 'grid';
+      }
+    });
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+    plus.addEventListener('click', () => { qty++; qtyEl.textContent = qty; updateTotal(); checkout.href = `${activeShow.ticket}?section=${encodeURIComponent(sectionSel.value)}&qty=${qty}`; });
+    minus.addEventListener('click', () => { qty = Math.max(1, qty-1); qtyEl.textContent = qty; updateTotal(); checkout.href = `${activeShow.ticket}?section=${encodeURIComponent(sectionSel.value)}&qty=${qty}`; });
+    sectionSel.addEventListener('change', () => { updateTotal(); checkout.href = `${activeShow.ticket}?section=${encodeURIComponent(sectionSel.value)}&qty=${qty}`; });
+
+    // ===== Add to Calendar (.ics) =====
+    document.getElementById('addCalendar').addEventListener('click', () => {
+      const title = 'Snoww — New Single Drop';
+      const start = releaseDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      const end = new Date(releaseDate.getTime() + 60*60*1000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Snoww//Release//EN\nBEGIN:VEVENT\nUID:${Date.now()}@snoww\nDTSTAMP:${start}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:${title}\nDESCRIPTION:New single drops — don\'t miss it!\nEND:VEVENT\nEND:VCALENDAR`;
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'snoww-release.ics'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // ===== Download hint: warn if link is not direct =====
+    const dl = document.getElementById('downloadLink');
+    dl.addEventListener('click', (e) => {
+      if (!/\.mp3($|\?|#)/i.test(dl.getAttribute('href'))) {
+        alert('Heads up: Set the Download link to a DIRECT .mp3 URL (e.g., yoursite.com/song.mp3 or a raw file URL).');
+      }
+    });
+  </script>
+</body>
+</html>
